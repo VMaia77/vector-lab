@@ -26,13 +26,17 @@ public:
     void setValues(std::initializer_list<T> list);
     void setAll(T value);
 
+    void append(const T& value);
+
 };
 
 
 // Definition
 
 template <typename T>
-Vector<T>::Vector() {}
+Vector<T>::Vector() {
+    data = std::vector<T>(size);
+}
 
 template <typename T>
 Vector<T>::Vector(int size) : size{size} {
@@ -70,6 +74,12 @@ void Vector<T>::setAll(T value) {
     for (int i = 0; i < size; i++) {
         data[i] = value;
     }
+}
+
+template <typename T>
+void Vector<T>::append(const T& value) {
+    data.push_back(value);
+    size = static_cast<int>(data.size());
 }
 
 
