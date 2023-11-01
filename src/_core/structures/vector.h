@@ -15,6 +15,7 @@ public:
     Vector();
     Vector(int size);
     Vector(std::initializer_list<T> list);
+    Vector(const std::vector<T> vec);
     ~Vector();
 
     int size{0};
@@ -45,6 +46,12 @@ Vector<T>::Vector(int size) : size{size} {
 
 template <typename T>
 Vector<T>::Vector(std::initializer_list<T> list) : data{list}, size{static_cast<int>(list.size())} {
+}
+
+template <typename T>
+Vector<T>::Vector(const std::vector<T> vec) {
+    data = vec;
+    size = static_cast<int>(vec.size());
 }
 
 template <typename T>

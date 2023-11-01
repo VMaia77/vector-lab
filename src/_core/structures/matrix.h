@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <cassert>
+#include <vector>
+
 #include "vector.h"
 #include "../math/vector_operations.h"
 
@@ -16,6 +18,7 @@ public:
     Matrix();
     Matrix(std::initializer_list<std::initializer_list<T>> list);
     Matrix(std::initializer_list<Vector<T>> list);
+    Matrix(const std::vector<Vector<T>> vectorList);
     ~Matrix();
 
     std::vector<Vector<T>> row_vectors;
@@ -24,19 +27,22 @@ public:
     void computeColVectors();
     void transpose();
 
+    size_t n_rows;
+    size_t n_cols;
+
 };
 
 
 // Definition
 
 template <typename T>
-Matrix<T>::Matrix() {}
+Matrix<T>::Matrix() : n_rows{0}, n_cols{0} {}
 
 
 template <typename T>
 Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> list) {
-
     size_t commonSize = 0;
+    n_rows = list.size();
 
     for (const std::initializer_list<T>& values_list : list) {
         Vector<T> VectorI(values_list);
@@ -49,14 +55,15 @@ Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> list) {
         }
     }
 
+    n_cols = commonSize;
     computeColVectors();
 }
 
 
 template <typename T>
 Matrix<T>::Matrix(std::initializer_list<Vector<T>> list) {
-    
     size_t commonSize = 0;
+    n_rows = list.size();
 
     for (const Vector<T>& vector : list) {
         row_vectors.push_back(vector);
@@ -68,6 +75,29 @@ Matrix<T>::Matrix(std::initializer_list<Vector<T>> list) {
         }
     }
 
+    n_cols = commonSize;
+    computeColVectors();
+}
+
+
+template <typename T>
+Matrix<T>::Matrix(const std::vector<Vector<T>> vectorList) {
+    size_t commonSize = 0;
+    n_rows = vectorList.size();
+
+    // Set the row_vectors directly to the input vectorList
+    row_vectors = vectorList;
+
+    // Calculate the number of columns and check for common sizes
+    for (const Vector<T>& vector : vectorList) {
+        if (commonSize == 0) {
+            commonSize = vector.size;
+        } else {
+            assert(vector.size == commonSize);
+        }
+    }
+
+    n_cols = commonSize;
     computeColVectors();
 }
 
