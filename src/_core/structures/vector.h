@@ -15,6 +15,7 @@ public:
     Vector();
     Vector(int size);
     Vector(std::initializer_list<T> list);
+    Vector(const std::vector<T> vec);
     ~Vector();
 
     int size{0};
@@ -26,13 +27,17 @@ public:
     void setValues(std::initializer_list<T> list);
     void setAll(T value);
 
+    void append(const T& value);
+
 };
 
 
 // Definition
 
 template <typename T>
-Vector<T>::Vector() {}
+Vector<T>::Vector() {
+    data = std::vector<T>(size);
+}
 
 template <typename T>
 Vector<T>::Vector(int size) : size{size} {
@@ -41,6 +46,12 @@ Vector<T>::Vector(int size) : size{size} {
 
 template <typename T>
 Vector<T>::Vector(std::initializer_list<T> list) : data{list}, size{static_cast<int>(list.size())} {
+}
+
+template <typename T>
+Vector<T>::Vector(const std::vector<T> vec) {
+    data = vec;
+    size = static_cast<int>(vec.size());
 }
 
 template <typename T>
@@ -70,6 +81,12 @@ void Vector<T>::setAll(T value) {
     for (int i = 0; i < size; i++) {
         data[i] = value;
     }
+}
+
+template <typename T>
+void Vector<T>::append(const T& value) {
+    data.push_back(value);
+    size = static_cast<int>(data.size());
 }
 
 
