@@ -97,7 +97,6 @@ Vector<T> divide(const Vector<T>& vector, const T& scalar) {
 }
 
 
-
 template <typename T>
 T dot(const Vector<T>& vector1, const Vector<T>& vector2) {
     assert(vector1.size == vector2.size);
