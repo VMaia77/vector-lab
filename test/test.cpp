@@ -358,4 +358,19 @@ void test() {
     }
 
 
+    Matrix<double> identityMatrix;
+    identityMatrix.IdentityMatrix(3);
+
+    std::cout << "Identity matrix" << std::endl;
+    for (const Vector<double>& vector : identityMatrix.row_vectors) {
+        for (const auto& element : vector.data) {
+            std::cout << element << ' ';
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "n_rows: " << identityMatrix.n_rows << std::endl;
+    std::cout << "n_cols: " << identityMatrix.n_cols << std::endl;
+
+    std::cout << std::endl;
+
 }

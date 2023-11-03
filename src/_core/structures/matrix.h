@@ -33,6 +33,8 @@ public:
     void appendVectorToRow(const Vector<T> vector);
     void appendVectorToCol(const Vector<T> vector);
 
+    void IdentityMatrix(size_t size);
+
 };
 
 
@@ -168,6 +170,37 @@ void Matrix<T>::appendVectorToCol(const Vector<T> vector) {
     if (n_rows == 0) {
         n_rows = vector.size;
     }
+}
+
+
+template <typename T>
+void Matrix<T>::IdentityMatrix(size_t size)
+{
+    row_vectors.clear();
+    col_vectors.clear();
+    n_rows = size;
+    n_cols = size;
+
+    for (size_t i = 0; i < size; ++i) {
+        
+        Vector<T> row_vector;
+
+        for (size_t j = 0; j < size; ++j)
+        {
+            if (i == j)
+            {
+                row_vector.append(1);
+            }
+            else
+            {
+                row_vector.append(0);
+            }
+        }
+
+        row_vectors.push_back(row_vector);
+    }
+
+    computeColVectors();
 }
 
 
