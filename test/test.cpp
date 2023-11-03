@@ -1,6 +1,9 @@
 #include "test.h"
 #include <list>
 
+// It might seem a bit messy, but it's quite handy during development
+// I will split the tests into smaller functions in future versions.
+
 
 void test() {
 
