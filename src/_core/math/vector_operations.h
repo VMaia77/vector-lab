@@ -44,7 +44,7 @@ Vector<T> divide(const Vector<T>& vector1, const Vector<T>& vector2) {
 
 
 template <typename T>
-T dotProduct(const Vector<T>& vector1, const Vector<T>& vector2) {
+T dot(const Vector<T>& vector1, const Vector<T>& vector2) {
     assert(vector1.size == vector2.size);
 
     T result = T(0);

@@ -1,7 +1,6 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-
 #include <iostream>
 #include <cassert>
 #include <vector>
@@ -21,14 +20,18 @@ public:
     Matrix(const std::vector<Vector<T>> vectorList);
     ~Matrix();
 
+    size_t n_rows;
+    size_t n_cols;
+
     std::vector<Vector<T>> row_vectors;
     std::vector<Vector<T>> col_vectors;
 
+    void computeRowVectors();
     void computeColVectors();
     void transpose();
 
-    size_t n_rows;
-    size_t n_cols;
+    void appendVectorToRow(const Vector<T> vector);
+    void appendVectorToCol(const Vector<T> vector);
 
 };
 
@@ -103,7 +106,28 @@ Matrix<T>::Matrix(const std::vector<Vector<T>> vectorList) {
 
 
 template <typename T>
+void Matrix<T>::computeRowVectors() {
+
+    row_vectors.clear();
+
+    for (int i = 0; i < col_vectors[0].size; ++i) {
+
+        Vector<T> vectorInitialization;
+
+        for (const Vector<T>& vector : col_vectors) {
+            
+            vectorInitialization.append(vector[i]);
+        }
+
+        row_vectors.push_back(vectorInitialization);
+    }
+}
+
+
+template <typename T>
 void Matrix<T>::computeColVectors() {
+
+    col_vectors.clear();
 
     for (int i = 0; i < row_vectors[0].size; ++i) {
 
@@ -123,6 +147,27 @@ template <typename T>
 void Matrix<T>::transpose() {
     // Swap the row_vectors with col_vectors
     std::swap(row_vectors, col_vectors);
+}
+
+
+template <typename T>
+void Matrix<T>::appendVectorToRow(const Vector<T> vector) {
+    assert(vector.size == n_cols || n_rows == 0);
+    row_vectors.push_back(vector);
+    n_rows++;
+    if (n_cols == 0) {
+        n_cols = vector.size;
+    }
+}
+
+template <typename T>
+void Matrix<T>::appendVectorToCol(const Vector<T> vector) {
+    assert(vector.size == n_rows || n_cols == 0);
+    col_vectors.push_back(vector);
+    n_cols++;
+    if (n_rows == 0) {
+        n_rows = vector.size;
+    }
 }
 
 

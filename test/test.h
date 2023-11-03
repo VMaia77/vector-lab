@@ -7,6 +7,7 @@
 #include "../src/_core/structures/matrix.h"
 #include "../src/_core/math/operations.h"
 #include "../src/_core/math/vector_operations.h"
+#include "../src/_core/math/matrix_operations.h"
 
 void test();
 

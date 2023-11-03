@@ -81,8 +81,8 @@ void test() {
     std::cout << "first element: " << firstElement << std::endl;
     std::cout << std::endl;
 
-    double dotproduct = dotProduct(myVector, myVector);
-    std::cout << "dot product: " << dotproduct << std::endl;
+    double dot = dot(myVector, myVector);
+    std::cout << "dot product: " << dot << std::endl;
     std::cout << std::endl;
 
     Vector<int> vAdd = add(myVector, myVector);
@@ -187,4 +187,153 @@ void test() {
     }
 
     std::cout << std::endl;
+
+
+    matrixV.computeRowVectors();
+    std::cout << "Print matrix row vectors after computeRowVectors" << std::endl;
+    for (const Vector<int>& vector : matrixV.row_vectors) {
+        for (const auto& element : vector.data) {
+            std::cout << element << ' ';
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    Matrix<double> matrixApp;
+    Vector<double> vec_to_append1({1.7, 2.3, 3.7, 7.1});
+    Vector<double> vec_to_append2({2.1, 20.0, 68.2, 2.21});
+    Vector<double> vec_to_append3({0.1, 7.7, 11.2, 9.2});
+
+    matrixApp.appendVectorToRow(vec_to_append1);
+    matrixApp.appendVectorToRow(vec_to_append2);
+    matrixApp.appendVectorToRow(vec_to_append3);
+    matrixApp.computeColVectors();
+
+    std::cout << "Print matrix from appended row Vectors" << std::endl;
+    for (const Vector<double>& vector : matrixApp.row_vectors) {
+        for (const auto& element : vector.data) {
+            std::cout << element << ' ';
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "n_rows: " << matrixApp.n_rows << std::endl;
+    std::cout << "n_cols: " << matrixApp.n_cols << std::endl;
+
+    std::cout << std::endl;
+
+
+    Matrix<double> matrixAppC;
+    matrixAppC.appendVectorToCol(vec_to_append1);
+    matrixAppC.appendVectorToCol(vec_to_append2);
+    matrixAppC.appendVectorToCol(vec_to_append3);
+    matrixAppC.computeRowVectors();
+
+    std::cout << "Print matrix from appended col Vectors" << std::endl;
+    for (const Vector<double>& vector : matrixAppC.row_vectors) {
+        for (const auto& element : vector.data) {
+            std::cout << element << ' ';
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "n_rows: " << matrixAppC.n_rows << std::endl;
+    std::cout << "n_cols: " << matrixAppC.n_cols << std::endl;
+
+    std::cout << std::endl;
+
+
+    Matrix<double> matrixAdd = add(matrixAppC, matrixAppC);
+    std::cout << "Print matrix after addition" << std::endl;
+    for (const Vector<double>& vector : matrixAdd.row_vectors) {
+        for (const auto& element : vector.data) {
+            std::cout << element << ' ';
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    Matrix<double> matrixSubtract = subtract(matrixAppC, matrixAppC);
+    std::cout << "Print matrix after subtraction" << std::endl;
+    for (const Vector<double>& vector : matrixSubtract.row_vectors) {
+        for (const auto& element : vector.data) {
+            std::cout << element << ' ';
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    Matrix<double> matrixMultiply = multiply(matrixAppC, matrixAppC);
+    std::cout << "Print matrix after multiplication" << std::endl;
+    for (const Vector<double>& vector : matrixMultiply.row_vectors) {
+        for (const auto& element : vector.data) {
+            std::cout << element << ' ';
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    Matrix<double> matrixDivide = divide(matrixAppC, matrixAppC);
+    std::cout << "Print matrix after division" << std::endl;
+    for (const Vector<double>& vector : matrixDivide.row_vectors) {
+        for (const auto& element : vector.data) {
+            std::cout << element << ' ';
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    Matrix<double> matrix1D;
+    matrix1D.appendVectorToRow(vec_to_append1);
+    matrix1D.computeColVectors();
+
+    Matrix<double> MMult = add(matrix1D, matrixApp);
+    std::cout << "Print matrix after addition with 1D matrix" << std::endl;
+    for (const Vector<double>& vector : MMult.row_vectors) {
+        for (const auto& element : vector.data) {
+            std::cout << element << ' ';
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << std::endl;
+
+
+    Matrix<double> MDot1D({{10.0, 20.0, 30.0}});
+
+    Matrix<double> DotProd1D = dot(MDot1D, matrixApp);
+    std::cout << "Dot product matrix 1x3 vs matrix 3x4" << std::endl;
+    for (const Vector<double>& vector : DotProd1D.row_vectors) {
+        for (const auto& element : vector.data) {
+            std::cout << element << ' ';
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "DotProd1D n_rows: " << DotProd1D.n_rows << std::endl;
+    std::cout << "DotProd1D n_cols: " << DotProd1D.n_cols << std::endl;
+
+    
+    Matrix<double> matrix4x5{
+        {1, 2, 3, 4, 7},
+        {4, 5, 6, 7, 9},
+        {7, 8, 9, 11, 2},
+        {7, 8, 9, 11, 2}
+        };
+
+    Matrix<double> DotProd1Dcase2 = dot(matrixApp, matrix4x5);
+    std::cout << "Dot product matrix 3x4 vs matrix 4x5" << std::endl;
+    for (const Vector<double>& vector : DotProd1Dcase2.row_vectors) {
+        for (const auto& element : vector.data) {
+            std::cout << element << ' ';
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "DotProd1Dcase2 n_rows: " << DotProd1Dcase2.n_rows << std::endl;
+    std::cout << "DotProd1Dcase2 n_cols: " << DotProd1Dcase2.n_cols << std::endl;
+
+    std::cout << std::endl;
+
 }
