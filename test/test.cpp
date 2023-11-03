@@ -81,13 +81,21 @@ void test() {
     std::cout << "first element: " << firstElement << std::endl;
     std::cout << std::endl;
 
-    double dot = dot(myVector, myVector);
-    std::cout << "dot product: " << dot << std::endl;
+    double dotprod = dot(myVector, myVector);
+    std::cout << "dot product: " << dotprod << std::endl;
     std::cout << std::endl;
 
     Vector<int> vAdd = add(myVector, myVector);
     std::cout << "Add vectors" << std::endl;
     for (const auto& element : vAdd.data) {
+        std::cout << element << ' ';
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    Vector<int> vAdd1 = add(7, myVector);
+    std::cout << "Add scalar on vectors" << std::endl;
+    for (const auto& element : vAdd1.data) {
         std::cout << element << ' ';
     }
     std::cout << std::endl;
@@ -120,7 +128,7 @@ void test() {
     std::cout << std::endl;
 
     // Matrix
-    Matrix<int> matrix = {
+    Matrix<int> matrix{
         {1, 2, 3},
         {4, 5, 6},
         {7, 8, 9}};
@@ -139,7 +147,7 @@ void test() {
     Vector<int> vec2({7, 77, 13, 43, 17});
     Vector<int> vec3({37, 2, 1, 1, 1});
 
-    Matrix<int> matrixV = {{vec1, vec2, vec3}};
+    Matrix<int> matrixV{{vec1, vec2, vec3}};
 
     std::cout << "Print matrix (list of Vector initialization)" << std::endl;
     for (const Vector<int>& vector : matrixV.row_vectors) {
@@ -335,5 +343,16 @@ void test() {
     std::cout << "DotProd1Dcase2 n_cols: " << DotProd1Dcase2.n_cols << std::endl;
 
     std::cout << std::endl;
+
+
+    Matrix<double> scalarAdditionMatrix = add(22.3, DotProd1Dcase2);
+    std::cout << "Scalar addition, add 22.3 on the matrix above" << std::endl;
+    for (const Vector<double>& vector : scalarAdditionMatrix.row_vectors) {
+        for (const auto& element : vector.data) {
+            std::cout << element << ' ';
+        }
+        std::cout << std::endl;
+    }
+
 
 }

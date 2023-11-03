@@ -50,10 +50,25 @@ Matrix<T> elementWiseOperation(const Matrix<T>& matrix1, const Matrix<T>& matrix
     return result;
 }
 
-
 template <typename T>
 Matrix<T> add(const Matrix<T>& matrix1, const Matrix<T>& matrix2) {
     return elementWiseOperation(matrix1, matrix2, addition);
+}
+
+template <typename T>
+Matrix<T> add(const T& scalar, const Matrix<T>& matrix) {
+    int size = matrix.n_cols;
+    Vector<T> scalarVector = vectorInitialization(size, scalar);
+    Matrix<T> matrixV {{scalarVector}};
+    return elementWiseOperation(matrixV, matrix, addition);
+}
+
+template <typename T>
+Matrix<T> add(const Matrix<T>& matrix, const T& scalar) {
+    int size = matrix.n_cols;
+    Vector<T> scalarVector = vectorInitialization(size, scalar);
+    Matrix<T> matrixV {{scalarVector}};
+    return elementWiseOperation(matrix, matrixV, addition);
 }
 
 template <typename T>
@@ -62,13 +77,61 @@ Matrix<T> subtract(const Matrix<T>& matrix1, const Matrix<T>& matrix2) {
 }
 
 template <typename T>
+Matrix<T> subtract(const T& scalar, const Matrix<T>& matrix) {
+    int size = matrix.n_cols;
+    Vector<T> scalarVector = vectorInitialization(size, scalar);
+    Matrix<T> matrixV {{scalarVector}};
+    return elementWiseOperation(matrixV, matrix, subtraction);
+}
+
+template <typename T>
+Matrix<T> subtract(const Matrix<T>& matrix, const T& scalar) {
+    int size = matrix.n_cols;
+    Vector<T> scalarVector = vectorInitialization(size, scalar);
+    Matrix<T> matrixV {{scalarVector}};
+    return elementWiseOperation(matrix, matrixV, subtraction);
+}
+
+template <typename T>
 Matrix<T> multiply(const Matrix<T>& matrix1, const Matrix<T>& matrix2) {
     return elementWiseOperation(matrix1, matrix2, multiplication);
 }
 
 template <typename T>
+Matrix<T> multiply(const T& scalar, const Matrix<T>& matrix) {
+    int size = matrix.n_cols;
+    Vector<T> scalarVector = vectorInitialization(size, scalar);
+    Matrix<T> matrixV {{scalarVector}};
+    return elementWiseOperation(matrixV, matrix, multiplication);
+}
+
+template <typename T>
+Matrix<T> multiply(const Matrix<T>& matrix, const T& scalar) {
+    int size = matrix.n_cols;
+    Vector<T> scalarVector = vectorInitialization(size, scalar);
+    Matrix<T> matrixV {{scalarVector}};
+    return elementWiseOperation(matrix, matrixV, multiplication);
+}
+
+template <typename T>
 Matrix<T> divide(const Matrix<T>& matrix1, const Matrix<T>& matrix2) {
     return elementWiseOperation(matrix1, matrix2, division);
+}
+
+template <typename T>
+Matrix<T> divide(const T& scalar, const Matrix<T>& matrix) {
+    int size = matrix.n_cols;
+    Vector<T> scalarVector = vectorInitialization(size, scalar);
+    Matrix<T> matrixV {{scalarVector}};
+    return elementWiseOperation(matrixV, matrix, division);
+}
+
+template <typename T>
+Matrix<T> divide(const Matrix<T>& matrix, const T& scalar) {
+    int size = matrix.n_cols;
+    Vector<T> scalarVector = vectorInitialization(size, scalar);
+    Matrix<T> matrixV {{scalarVector}};
+    return elementWiseOperation(matrix, matrixV, division);
 }
 
 
